@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="blog.css" />
+    <link
+      rel="stylesheet"
+      media="screen and (max-width: 800px)"
+      href="response.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #0a0d14;
+      }
+      .blog-posts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+      }
+      .post {
+        width: 40%;
+        margin: 15px 0;
+        margin-top: 3vh;
+        margin-bottom: 5vh;
+      }
+      .image-container {
+        position: relative;
+      }
+      .post-name {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px;
+        font-size: 18px;
+        border-radius: 5px;
+      }
+      .post-content {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        color: #fff;
+        padding: 10px;
+        display: none;
+        font-size: 18px;
+      }
+      .image-container:hover .post-name {
+        display: none;
+      }
+      .image-container:hover .post-content {
+        display: block;
+      }
+      img {
+        border-radius: 10px;
+      }
+      .bookmark-icon {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-color: black;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      .bookmark-icon i {
+        color: white; /* Default color */
+      }
+      .bookmark-icon.bookmarked i {
+        color: yellow; /* Color when bookmarked */
+      }
+      #gallery-section{
+        background: #0a0d14;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="logo">
+          <p>Wanderlust Journeys</p>
+        </div>
+        <div class="menu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="signin.html">Sign-in</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="banner-section">
+        <div class="banner-image">
+          <img src="blog-bg5.png" alt="banner-image" />
+        </div>
+        <div class="banner-content" id="main-banner">
+          <h1>BLOG</h1>
+          <h2>Explore • Plan • Travel</h2>
+        </div>
+      </div>
+      <div class="gallery" id="gallery-section">
+        <div class="section-row">
+          <h2>Blog Posts</h2>
+        </div>
+        <div class="search">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search..."
+            oninput="filterGallery()"
+          />
+        </div>
+      </div>
+
+      <br><br><br>
+      <div class="blog-posts">
+        <div class="post">
+          <a href="nanital.html">
+            <div class="image-container">
+              <span
+                class="bookmark-icon"
+                data-place="Nanital"
+                onclick="toggleBookmark(event, this)"
+              >
+                <i class="fa fa-star"></i>
+              </span>
+              <img
+                src="nanital.jpg"
+                alt="Blog Post 1"
+                height="400px"
+                width="400px"
+              />
+              <div class="post-name">NANITAL</div>
+              <div class="post-content">
+                <p>
+                  Nainital, often referred to as the "Lake District of India,"
+                  is a picturesque hill station nestled in the Kumaon region of
+                  Uttarakhand, situated at an elevation of about 2,084 meters.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="post">
+          <a href="dheradun.html">
+            <div class="image-container">
+              <span
+                class="bookmark-icon"
+                data-place="Dheradun"
+                onclick="toggleBookmark(event, this)"
+              >
+                <i class="fa fa-star"></i>
+              </span>
+              <img
+                src="dheradun.jpg"
+                alt="Blog Post 2"
+                height="400px"
+                width="400px"
+              />
+              <div class="post-name">DEHRADUN</div>
+              <div class="post-content">
+                <p>
+                  Dehradun is a captivating city with picturesque landscapes and
+                  serves as a gateway to Uttarakhand's natural wonders.As the
+                  capital of the northern Indian state of Uttarakhand, Dehradun
+                  serves as a gateway to some of the most breathtaking natural
+                  wonders in the country
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="post">
+          <a href="almora.html">
+            <div class="image-container">
+              <span
+                class="bookmark-icon"
+                data-place="Almora"
+                onclick="toggleBookmark(event, this)"
+              >
+                <i class="fa fa-star"></i>
+              </span>
+              <img
+                src="almora.jpg"
+                alt="Blog Post 1"
+                height="400px"
+                width="400px"
+              />
+              <div class="post-name">ALMORA</div>
+              <div class="post-content">
+                <p>
+                  Almora, a picturesque hill town nestled in the Kumaon region
+                  of Uttarakhand, is renowned for its rich cultural heritage,
+                  stunning natural beauty, and serene ambiance. Situated at an
+                  altitude of around 1,638 meters (5,374 feet) above sea level,
+                  Almora is a popular destination for those seeking an escape
+                  from the hustle and bustle of city life.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="post">
+          <a href="chamoli.html">
+            <div class="image-container">
+              <span
+                class="bookmark-icon"
+                data-place="Chamoli"
+                onclick="toggleBookmark(event, this)"
+              >
+                <i class="fa fa-star"></i>
+              </span>
+              <img
+                src="Chamoli1.jpg"
+                alt="Blog Post 1"
+                height="400px"
+                width="400px"
+              />
+              <div class="post-name">CHAMOLI</div>
+              <div class="post-content">
+                <p>
+                  Chamoli is the birthplace of the Chipko Movement and attracts
+                  nature lovers as much as it beckons the religiously bent.
+                  History has it that Chamoli was carved out of the former
+                  Garhwal district in 1960.When in Chamoli, it is imperative to
+                  try local and traditional cuisine. Predominantly grain and
+                  cereal-based, incorporate fresh local produce.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="post">
+          <a href="therigarhwal.html">
+            <div class="image-container">
+              <span
+                class="bookmark-icon"
+                data-place="Therigarhwal"
+                onclick="toggleBookmark(event, this)"
+              >
+                <i class="fa fa-star"></i>
+              </span>
+              <img
+                src="Tehri1.jpg"
+                alt="Blog Post 1"
+                height="400px"
+                width="400px"
+              />
+              <div class="post-name">THERIGARHWAL</div>
+              <div class="post-content">
+                <p>
+                  Tehri Garhwal is on of the sacred hilly districts of
+                  Uttarakhand State. Before the creation of universe, Lord
+                  Brahma is said to have meditated on this sacred land.
+                  Muni-ki-Reti and Tapovan of the district are the places of
+                  penance for the ancient Rishis. Its hilly terrain and lack of
+                  easy communications have helped it to preserve its culture
+                  almost intact.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="post">
+          <a href="pithoragarh.html">
+            <div class="image-container">
+              <span
+                class="bookmark-icon"
+                data-place="pithoragarh"
+                onclick="toggleBookmark(event, this)"
+              >
+                <i class="fa fa-star"></i>
+              </span>
+              <img
+                src="Pithoragarh1.jpg"
+                alt="Blog Post 1"
+                height="400px"
+                width="400px"
+              />
+              <div class="post-name">PITHORAGARH</div>
+              <div class="post-content">
+                <p>
+                  Pithoragarh has great strategic significance and is also a
+                  politically sensitive district along the northern frontier of
+                  India.Having tremendous strategic importance as the passes of
+                  Lipulekh, Kungribingri, Pithoragarh is the last district
+                  adjoining Tibet. Till 2019, the Ministry of External Affairs
+                  conducted the Kailash Mansarovar Yatra via Pithoragarh
+                  District, which was done by trek.
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>  <br><br>
+
+      <div class="box">
+        <div class="footer">
+          <div class="row">
+            <div class="footer-col">
+              <h4>About us</h4>
+              <ul>
+                <li><a href="#">our services</a></li>
+                <li><a href="#">privacy policy</a></li>
+                <li>
+                  <a href="#">our best blog</a>
+                </li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>get help</h4>
+              <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Help Center</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Contact us</h4>
+              <ul>
+                <li><a href="#">+91 1234567890</a></li>
+                <li>
+                  <a href="https://mail.google.com/">blog9463@gmail.com</a>
+                </li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Follow us</h4>
+              <div class="social-links">
+                <a href="https://www.facebook.com/#"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+
+                <a href="https://x.com/"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+                <a href="https://in.linkedin.com/"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    
+    window.onload = function () {
+      initializeBookmarks();
+    };
+
+    function toggleBookmark(event, element) {
+      event.stopPropagation(); 
+      const place = element.getAttribute("data-place");
+      let bookmarkedPlaces =
+        JSON.parse(localStorage.getItem("bookmarkedPlaces")) || [];
+
+      if (bookmarkedPlaces.includes(place)) {
+        bookmarkedPlaces = bookmarkedPlaces.filter((item) => item !== place);
+        element.classList.remove("bookmarked");
+      } else {
+        bookmarkedPlaces.push(place);
+        element.classList.add("bookmarked");
+      }
+
+      localStorage.setItem(
+        "bookmarkedPlaces",
+        JSON.stringify(bookmarkedPlaces)
+      );
+      updateBookmarkedList();
+    }
+
+    
+    function initializeBookmarks() {
+      const bookmarkedPlaces =
+        JSON.parse(localStorage.getItem("bookmarkedPlaces")) || [];
+      const bookmarkIcons = document.querySelectorAll(".bookmark-icon");
+
+      bookmarkIcons.forEach(function (icon) {
+        const place = icon.getAttribute("data-place");
+        if (bookmarkedPlaces.includes(place)) {
+          icon.classList.add("bookmarked");
+        }
+      });
+    }
+
+    
+    function updateBookmarkedList() {
+      const bookmarkedPlaces =
+        JSON.parse(localStorage.getItem("bookmarkedPlaces")) || [];
+      const bookmarkListContainer = document.getElementById(
+        "bookmarked-places-list"
+      );
+
+      if (bookmarkListContainer) {
+        bookmarkListContainer.innerHTML = "";
+        bookmarkedPlaces.forEach(function (place) {
+          const listItem = document.createElement("li");
+          listItem.textContent = place;
+          bookmarkListContainer.appendChild(listItem);
+        });
+      }
+    }
+  </script>
+</html>
