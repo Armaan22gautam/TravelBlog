@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Page</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url(nanital.jpg) no-repeat center center/cover;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            width: 65%;
+        }
+
+        .plans {
+            display: flex;
+            justify-content:space-between;
+            margin-top: 40px;
+        }
+
+        .plan {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 28%;
+            height: 35vh;
+            background-color: ghostwhite;
+            border-radius: 10px;
+        }
+
+        .plan h2 {
+            margin-bottom: 20px;
+        }
+
+        .plan p {
+            margin-bottom: 15px;
+        }
+
+        .plan button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .modal, .gateway {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            padding: 45px;
+            background-color: white;
+            border: 1px solid #ccc;
+            z-index: 1000;
+            border-radius: 10px;
+        }
+
+        .modal input, .gateway select {
+            width: 100%;
+            margin-bottom: 18px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .modal button, .gateway button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">
+          <p>Wanderlust Journeys</p>
+        </div>
+        <div class="menu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="signin.html">Sign in</a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="container"> <br>
+        <h1>Choose Your Subscription Plan</h1>
+        <div class="plans">
+            <div class="plan">
+                <h2>1 Month Plan</h2>
+                <h4>Price: $10</h4>
+                <p> <b>Benefits:</b> </p>
+                <p> • Access to all content</p> <br>
+                <button onclick="openModal('1 Month', 10)">Buy Now</button>
+            </div>
+            <div class="plan">
+                <h2>6 Months Plan</h2>
+                <h4>Price: $50</h4>
+                <p> <b>Benefits:</b> </p>
+                <p> • Access to all content + Priority Support </p>
+                <button onclick="openModal('6 Months', 50)">Buy Now</button>
+            </div>
+            <div class="plan">
+                <h2>1 Year Plan</h2>
+                <h4>Price: $90</h4>
+                <p> <b>Benefits:</b> </p>
+                <p> • Access to all content + Priority Support + Special Offers</p>
+                <button onclick="openModal('1 Year', 90)">Buy Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="userModal">
+        <h2>Enter your details</h2>
+        <input type="text" id="name" placeholder="Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="tel" id="contact" placeholder="Contact Number">
+        <button onclick="validateUserInfo()">Proceed to Payment</button>
+    </div>
+
+    <div class="gateway" id="gatewayModal">
+        <h2>Payment Gateway</h2>
+        <p>Total Amount: $<span id="totalAmount"></span></p>
+        
+        <select id="paymentMode" onchange="handlePaymentMethodChange()">
+            <option value="credit">Credit Card</option>
+            <option value="debit">Debit Card</option>
+            <option value="paypal">PayPal</option>
+        </select>
+
+        <div id="paymentDetails"></div>
+
+        <button onclick="proceedToPay()">Proceed to Pay</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        let selectedPlan = '';
+        let selectedPrice = 0;
+
+        function openModal(plan, price) {
+            selectedPlan = plan;
+            selectedPrice = price;
+            document.getElementById('userModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function validateUserInfo() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const contact = document.getElementById('contact').value;
+
+            if (!name || !email || !contact) {
+                alert('Please fill in all the details');
+                return;
+            }
+
+            openGateway();
+        }
+
+        function openGateway() {
+            document.getElementById('userModal').style.display = 'none';
+            document.getElementById('gatewayModal').style.display = 'block';
+            document.getElementById('totalAmount').textContent = selectedPrice;
+        }
+
+        function proceedToPay() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const contact = document.getElementById("contact").value;
+
+            fetch("http://127.0.0.1:5000/subscribe", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, contact, plan: selectedPlan, price: selectedPrice }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Payment Successful! Transaction ID: ${data.transactionID}`);
+                window.location.href = "blog.html";
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>

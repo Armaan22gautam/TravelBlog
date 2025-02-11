@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sign-in</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      media="screen and (max-width: 800px)"
+      href="response.css"
+    />
+    <style>
+      .sign-banner {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .sign-form img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 140%;
+        height: 100%;
+        object-fit: cover;
+        transform: translate(-50%, -50%);
+      }
+      .sign-content {
+        position: absolute;
+        top: 8vh;
+        left: 45vw;
+      }
+      .sign-content h2 {
+        color: #405e66;
+        font-size: 45px;
+        text-align: center;
+      }
+      .sign-content form {
+        position: absolute;
+        top: 10vh;
+        left: -13.5vw;
+        padding: 30px;
+      }
+      #login-container {
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 35vw;
+        padding: 18px 23px;
+        margin: 20px 0;
+        display: inline-block;
+        box-sizing: border-box;
+        /* opacity: 0.7; */
+        font-size: 17px;
+      }
+      input[type="text"]:focus {
+        background-color: lightgray;
+      }
+      input[type="password"]:focus {
+        background-color: lightgray;
+      }
+      label {
+        color: #131e21;
+        font-size: 25px;
+      }
+      button {
+        background-color: #24383c;
+        color: white;
+        padding: 14px 20px;
+        margin: 20px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 4px;
+        opacity: 0.95;
+      }
+      button:hover {
+        background-color: #242c2c;
+      }
+      .sign-content h3 a {
+        color: mediumblue;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="logo">
+          <!-- <img src="lo.png" alt="logo"> -->
+          <p>Wanderlust Journeys</p>
+        </div>
+        <div class="menu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="signin.html">Sign-in</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="sign-banner">
+        <div class="sign-form">
+          <img src="signbg2.jpg" alt="img" />
+        </div>
+        <div class="sign-content">
+          <h2>SIGN-IN</h2>
+          <form onsubmit="login(event)">
+            <label for="username"><b>Username:</b></label>
+            <input type="text" id="username" placeholder="Enter your email" />
+
+            <label for="password"><b>Password:</b></label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+            />
+            <h3><a href="#">Forgot Password?</a></h3>
+            <button onclick="login()"><b>Login</b></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="footer">
+          <div class="row">
+            <div class="footer-col">
+              <h4>About us</h4>
+              <ul>
+                <li><a href="#">our services</a></li>
+                <li><a href="#">privacy policy</a></li>
+                <li>
+                  <a href="#">our best blog</a>
+                </li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>get help</h4>
+              <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Help Center</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Contact us</h4>
+              <ul>
+                <li><a href="#">+91 1234567890</a></li>
+                <li>
+                  <a href="https://mail.google.com/">blog9463@gmail.com</a>
+                </li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Follow us</h4>
+              <div class="social-links">
+                <a href="https://www.facebook.com/#"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+
+                <a href="https://x.com/"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.instagram.com/"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+                <a href="https://in.linkedin.com/"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleBookmark(element) {
+        const place = element.getAttribute("data-place");
+        let bookmarkedPlaces =
+          JSON.parse(localStorage.getItem("bookmarkedPlaces")) || [];
+
+        if (bookmarkedPlaces.includes(place)) {
+          bookmarkedPlaces = bookmarkedPlaces.filter((item) => item !== place);
+          element.classList.remove("bookmarked");
+        } else {
+          bookmarkedPlaces.push(place);
+          element.classList.add("bookmarked");
+        }
+
+        localStorage.setItem(
+          "bookmarkedPlaces",
+          JSON.stringify(bookmarkedPlaces)
+        );
+        updateBookmarkedList();
+      }
+
+      function initializeBookmarks() {
+        const bookmarkedPlaces =
+          JSON.parse(localStorage.getItem("bookmarkedPlaces")) || [];
+        const bookmarkIcons = document.querySelectorAll(".bookmark-icon");
+
+        bookmarkIcons.forEach(function (icon) {
+          const place = icon.getAttribute("data-place");
+          if (bookmarkedPlaces.includes(place)) {
+            icon.classList.add("bookmarked");
+          }
+        });
+      }
+
+      function updateBookmarkedList() {
+        const bookmarkedPlaces =
+          JSON.parse(localStorage.getItem("bookmarkedPlaces")) || [];
+        const bookmarkListContainer = document.getElementById(
+          "bookmarked-places-list"
+        );
+
+        bookmarkListContainer.innerHTML = "";
+
+        bookmarkedPlaces.forEach(function (place) {
+          const listItem = document.createElement("li");
+          listItem.textContent = place;
+          bookmarkListContainer.appendChild(listItem);
+        });
+      }
+
+      window.onload = function () {
+        initializeBookmarks();
+        updateBookmarkedList();
+      };
+
+      function filterGallery() {
+        var searchInput = document
+          .getElementById("searchInput")
+          .value.toUpperCase();
+
+        var allWrappers = document.querySelectorAll("[class^='wrapper']");
+
+        allWrappers.forEach(function (wrapper) {
+          var title = wrapper.querySelector("h2").textContent.toUpperCase();
+          var content = wrapper
+            .querySelector(".content p")
+            .textContent.toUpperCase();
+
+          var shouldDisplay =
+            title.includes(searchInput) || content.includes(searchInput);
+
+          wrapper.style.display = shouldDisplay ? "block" : "none";
+        });
+      }
+
+      function login(event) {
+        event.preventDefault();
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        if (password.length < 8) {
+          alert("Password must contain at least 8 characters.");
+          return;
+        }
+
+        alert("Login successful!");
+        window.location.href = "blog.html";
+      }
+    </script>
+  </body>
+</html>
